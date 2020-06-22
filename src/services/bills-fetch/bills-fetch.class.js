@@ -5,9 +5,10 @@ exports.BillsFetch = class BillsFetch extends Service {
     this.app = app;
   }
 
-  async find(params) {
-    const { query = {} } = params;
-    const { attributeName = '', attributeValue = '' } = query;
+  async create(data) {
+    const { customerIdentifiers = [] } = data;
+    const [customerDataQuery = {}] = customerIdentifiers;
+    const { attributeName = '', attributeValue = '' } = customerDataQuery;
 
     // throw an error if the details are incomplete
     if (!attributeName || !attributeValue) {
@@ -16,7 +17,7 @@ exports.BillsFetch = class BillsFetch extends Service {
 
     // get customer data based on attribute name and value
     const customerResponse = await this.app.service('customers').find({
-      query
+      query: customerDataQuery
     });
 
     // if no customer exists, send appropriate response
@@ -34,8 +35,8 @@ exports.BillsFetch = class BillsFetch extends Service {
       };
     }
 
-    const  { data = [] } = customerResponse;
-    const [customerData = {}] = data;
+    const  { data: customerResponseData = [] } = customerResponse;
+    const [customerData = {}] = customerResponseData;
     const { _id: customerId = '', name: customerName = '' } = customerData;
 
     // fetch all bills for this customer

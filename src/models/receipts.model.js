@@ -1,21 +1,16 @@
-// bills-model.js - A mongoose model
+// receipts-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'bills';
+  const modelName = 'receipts';
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    billerBillID: { type: String, auto: true },
-    platformBillID: { type: String, required: true },
+    billerBillID: { type: String, required: true },
     paymentDetails: {
       type: Schema.Types.Mixed
     },
-    receipt: {
-      'date': { type: Date },
-      'id': { type: String }
-    }
   }, {
     timestamps: true
   });
