@@ -25,6 +25,14 @@ exports.BillsFetchReceipt = class BillsFetchReceipt extends Service {
       }
     });
 
+    if (billResponseData.total === 0) {
+      return {
+        error: { detail: 'Bill not found' },
+        status: 404,
+        success: true
+      };
+    }
+
     const { data: billData = {} } = billResponseData;
     const [targetBill = {}] = billData;
     const { _id: targetBillId } = targetBill;
