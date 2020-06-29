@@ -15,7 +15,10 @@ module.exports = function (app) {
     receipt: {
       'date': { type: Date },
       'id': { type: String }
-    }
+    },
+     customerAccount: {
+       'id': { type: String }
+     },
   }, {
     timestamps: true
   });
